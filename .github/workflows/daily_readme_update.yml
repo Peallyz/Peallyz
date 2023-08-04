@@ -2,18 +2,22 @@ name: Daily Readme Update
 
 on:
   schedule:
-    - cron: "0 6 * * *" # Exécute l'action tous les jours à 8h00 du matin heure de Paris (6h00 UTC)
+    - cron: "0 6 * * *"
 
 jobs:
   update_readme:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3  
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'  
 
     - name: Update experience counter
       run: |
-        current_date=$(TZ="Europe/Paris" date +"%Y-%m-%d")
         readme_file="README.md"
         readme_content=$(cat $readme_file)
         current_counter=$(echo "$readme_content" | grep -oP "(?<=💻 )[0-9]+(?= days of experiences and practices)")
@@ -23,8 +27,8 @@ jobs:
 
     - name: Commit and push changes
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --local user.email "pieclandre@gmail.com"
+        git config --local user.name "Peally"
         git add README.md
         git commit -m "Daily README update: $(date +%Y-%m-%d)"
         git push
