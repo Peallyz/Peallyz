@@ -17,7 +17,7 @@ jobs:
         readme_content=$(cat $readme_file)
         current_counter=$(echo "$readme_content" | grep -oP "(?<=💻 )[0-9]+(?= days of experiences and practices)")
         current_counter=$(($current_counter + 1))
-        updated_content=$(echo "$readme_content" | sed "s/💻 $current_counter days of experiences and practices/💻 $current_counter/g")
+        updated_content=$(echo "$readme_content" | sed "s/💻 $current_counter days of experiences and practices/💻 $(($current_counter + 1))/g")
         echo -e "$updated_content" > $readme_file
 
     - name: Commit and push changes
