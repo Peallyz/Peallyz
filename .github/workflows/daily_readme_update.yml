@@ -19,11 +19,11 @@ jobs:
         current_counter=$(($current_counter + 1))
         updated_content=$(echo "$readme_content" | sed "s/💻 $current_counter days of experiences and practices/💻 $(($current_counter + 1))/g")
         echo -e "$updated_content" > $readme_file
+        git add $readme_file  # Ajouter le fichier au répertoire de travail
 
     - name: Commit and push changes
       run: |
         git config --local user.email "pieclandre@gmail.com"
         git config --local user.name "Peally"
-        git add README.md
         git commit -m "Daily README update: $(date +%Y-%m-%d)"
         git push
