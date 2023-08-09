@@ -2,28 +2,28 @@ name: Daily Readme Update
 
 on:
   schedule:
-    - cron: "0 6 * * *"
+    - cron: "0 8 * * *"
 
 jobs:
   update_readme:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3  
-
-    - name: Update experience counter
-      run: |
-        readme_file="README.md"
-        readme_content=$(cat $readme_file)
-        current_counter=$(echo "$readme_content" | grep -oP "(?<=💻 )[0-9]+(?= days of experiences and practices)")
-        current_counter=$(($current_counter + 1))
-        updated_content=$(echo "$readme_content" | sed "s/💻 $current_counter days of experiences and practices/💻 $(($current_counter + 1))/g")
-        echo -e "$updated_content" > $readme_file
-        git add $readme_file 
-
-    - name: Commit and push changes
-      run: |
-        git config --local user.email "pieclandre@gmail.com"
-        git config --local user.name "Peally"
-        git commit -m "Daily README update: $(date +%Y-%m-%d)"
-        git push
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "14.x"
+      - name: Run update script
+        run: |
+          node index.js > README.md
+        env:
+          CI: true
+      - name: commit changes
+        uses: EndBug/add-and-commit@v4
+        with:
+          author_name: Peally
+          author_email: pieclandre@gmail.com
+          force: false
+          signoff: false
+          message: "Daily README update: $(date +%d-%m-%Y)"
