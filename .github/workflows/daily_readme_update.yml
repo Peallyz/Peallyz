@@ -2,7 +2,7 @@ name: Daily Readme Update
 
 on:
   schedule:
-    - cron: "0 8 * * *"
+    - cron: "20 9 * * *"
 
 jobs:
   update_readme:
@@ -16,7 +16,7 @@ jobs:
           node-version: "14.x"
       - name: Run update script
         run: |
-          node index.js > README.md
+          node index.js
         env:
           CI: true
       - name: commit changes
