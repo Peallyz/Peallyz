@@ -27,3 +27,5 @@ jobs:
           force: false
           signoff: false
           message: "Daily README update: $(date +%d-%m-%Y)"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
