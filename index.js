@@ -1,21 +1,13 @@
-const fs = require("fs");
+const fs = require('fs');
 
 function readReadmeFile(filePath) {
   try {
-    const content = fs.readFileSync(filePath, "utf-8");
+    const content = fs.readFileSync(filePath, 'utf-8');
     return content;
   } catch (error) {
     console.error("Error reading the file:", error);
     return null;
   }
-}
-
-const readmeFilePath = "README.md";
-const readmeContent = readReadmeFile(readmeFilePath);
-
-if (!readmeContent) {
-  console.error("Readme content could not be read.");
-  process.exit(1);
 }
 
 function updateExperienceDays(content) {
@@ -25,10 +17,7 @@ function updateExperienceDays(content) {
   if (match && match[1]) {
     const currentDays = parseInt(match[1]);
     const newDays = currentDays + 1;
-    const updatedContent = content.replace(
-      regex,
-      `💻 ${newDays} days of experiences and practices.`
-    );
+    const updatedContent = content.replace(regex, `💻 ${newDays} days of experiences and practices.`);
     return updatedContent;
   } else {
     console.error("Experience days not found in the content.");
@@ -36,20 +25,21 @@ function updateExperienceDays(content) {
   }
 }
 
-const updatedReadmeContent = updateExperienceDays(readmeContent);
-
-if (!updatedReadmeContent) {
-  console.error("Updating experience days failed.");
-  process.exit(1);
-}
-
 function writeReadmeFile(filePath, content) {
   try {
-    fs.writeFileSync(filePath, content, "utf-8");
+    fs.writeFileSync(filePath, content, 'utf-8');
     console.log("Readme file updated successfully.");
   } catch (error) {
     console.error("Error writing the file:", error);
   }
 }
 
-writeReadmeFile(readmeFilePath, updatedReadmeContent);
+const readmeFilePath = './README.md';
+let readmeContent = readReadmeFile(readmeFilePath);
+
+if (readmeContent) {
+  readmeContent = updateExperienceDays(readmeContent);
+  if (readmeContent) {
+    writeReadmeFile(readmeFilePath, readmeContent);
+  }
+}
