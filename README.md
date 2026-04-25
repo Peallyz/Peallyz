@@ -1,5 +1,5 @@
 # 💫 About Me:
-🔭 I'm a React JS junior developper.<br>🌱 Working everyday to improve my skills and knowledge.<br>⚡ Interested in craftmanship, I focus my efforts on writing a cleaner code.<br>💻 1537 days of experiences and practices.
+🔭 I'm a React JS junior developper.<br>🌱 Working everyday to improve my skills and knowledge.<br>⚡ Interested in craftmanship, I focus my efforts on writing a cleaner code.<br>💻 1538 days of experiences and practices.
 
 
 ## 🌐 Socials:
